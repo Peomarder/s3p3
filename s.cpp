@@ -1,4 +1,5 @@
 #include <net/if.h>
+#define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <sys/ioctl.h>
 #include <iostream>
 #include <string>
@@ -15,7 +16,6 @@
 
 #include <thread>
 #include <mutex>
-
 
 using namespace std;
 using json = nlohmann::json;
@@ -64,7 +64,7 @@ std::string tToJsonOrder(const std::string& tableStr) {
 void stringToCharArray(const std::string& input, char output[], size_t maxSize) {
     size_t length = std::min(input.length(), maxSize - 1);
     std::strncpy(output, input.c_str(), length);
-    output[length] = '';
+ //   output[length] = '';
 }
 
 /*
@@ -183,7 +183,7 @@ if(db){subp("newdb");}
             std::string result = subp("SELECT lot.lot_id,lot.name FROM lot");
             res.set_content(result, "application/json");
         });
-		cout<<"Listening\n"
+		cout<<"Listening\n";
         server.listen("0.0.0.0", PORT);
 
 
