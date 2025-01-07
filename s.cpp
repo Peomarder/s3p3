@@ -61,6 +61,12 @@ std::string tToJsonOrder(const std::string& tableStr) {
     result += "\n]";
     return result;
 }
+void stringToCharArray(const std::string& input, char output[], size_t maxSize) {
+    size_t length = std::min(input.length(), maxSize - 1);
+    std::strncpy(output, input.c_str(), length);
+    output[length] = '';
+}
+
 /*
 // Server class
 class ExchangeServer {
@@ -133,6 +139,7 @@ int db;
 cin>>db;
 if(db){subp("newdb");}
 
+		httplib::Server server;
 
         // Create user endpoint
         server.Post("/user", [](const httplib::Request &req, httplib::Response &res) {
