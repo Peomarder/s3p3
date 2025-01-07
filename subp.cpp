@@ -660,10 +660,10 @@ columnList->push("");
 	string tableName;
 	size_t k=0;
 	size_t rowIndex = 0;
-	cout<<tableNames;
+	//cout<<tableNames;
 while (getline(tableStream, tableName, ',')) {
 	trim(tableName);
-	cout<<"Cur t:"<<tableName<<endl;
+	//cout<<"Cur t:"<<tableName<<endl;
 	rowIndex = 0;
 	fs::path tablePath = fs::path(schemaName) / tableName;
 	fs::path lockFilePath = tablePath / (tableName + "_lock.txt");
@@ -741,7 +741,7 @@ while (getline(tableStream, tableName, ',')) {
 	//result->print();
 }
 //cout<<"R";
-cout<<actualresult->numCols<<" "<<actualresult->numRows<<endl;
+//cout<<actualresult->numCols<<" "<<actualresult->numRows;
 actualresult->print();
 return actualresult;//lol why
 
@@ -1042,7 +1042,7 @@ deleteRecords(tableName, whereClause);
 
 
 
-cout << "Program completed successfully. " << endl;
+//cout << "Program completed successfully. " << endl;
 
 cout.rdbuf(old_stdout);
 string result = buffer.str();
