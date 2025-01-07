@@ -23,7 +23,7 @@ using json = nlohmann::json;
 std::mutex mtx;
 const int PORT = 7432;
 string generateOrderId(){
-	ifstream pkSF("scheme1/order_pk_sequence.txt"); 
+	ifstream pkSF("birja/order_pk_sequence.txt"); 
 	if(!pkSF.is_open()) {
     return "error";  // Should handle file errors!
 	}
@@ -149,7 +149,7 @@ if(db){subp("newdb");}
             string generated_key = tocharints(username); 					//idk no user key specification so idc
             // Database operation
              cout<<"POST USER2\n";
-            subp("INSERT INTO user VALUES ('" + ("id"+tocharints(username))+//id
+			cout<<subp("INSERT INTO user VALUES ('" + ("id"+generated_key)+//id
                  "', '" + username + "', '" 								//name
 				 + generated_key + "')");									//key
              cout<<"POST USER3\n";
@@ -175,6 +175,7 @@ if(db){subp("newdb");}
 
         // Get orders endpoint
         server.Get("/order", [](const httplib::Request &, httplib::Response &res) {
+			cout<<subp("SELECT order.order_id,order.user_id,order.lot_id,order.quantity,order.type,order.price,order.closed FROM order");
             std::string result = tToJsonOrder(subp("SELECT order.order_id,order.user_id,order.lot_id,order.quantity,order.type,order.price,order.closed FROM order"));
             res.set_content(result, "application/json");
         });
