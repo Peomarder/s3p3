@@ -41,7 +41,7 @@ public:
 
  std::string createOrder(const std::string& userKey, int pairId, 
                           float quantity, float price, string isBuy) {
-							  if ((isBuy!="buy")&&(isBuy!="sell")){ return "format error";}
+							 // if ((isBuy!="buy")&&(isBuy!="sell")){ return "format error";}
         nlohmann::json j{
             {"pair_id", pairId},
             {"quantity", quantity},
@@ -74,27 +74,9 @@ char message[1024] = {0};
 char reply[1024] = {0};
 auto exchange = std::make_unique<ExchangeClient>();
 
-// Create socket
-if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
-std::cerr << "Failed to create socket" << std::endl;
-return -1;
-}
 
-// Set server address
-server_addr.sin_family = AF_INET;
-server_addr.sin_port = htons(7432);
-string ipcon = "";
-cout << "\nEnter ip: ";
-cin >> ipcon; //"127.0.0.1"
-inet_pton(AF_INET, ipcon.c_str(), &server_addr.sin_addr);
-
-// Connect to server
-if (connect(client_fd, (struct sockaddr*)&server_addr, server_len) < 0) {
-std::cerr << "Failed to connect to server" << std::endl;
-return -1;
-}
 string userkey = "";
-std::cout << "Connected to server..." << std::endl;
+std::cout << "Connected to server... maybe" << std::endl;
 string restOfLine = "";
 bool firstRun = true;
 
@@ -141,23 +123,9 @@ while (true) {
 		}
 
 
-
-
-
-
-	// Send message to server
-	char paddedMessage[1024] = {0};  // Create padded buffer
-	strcpy(paddedMessage, message);   // Copy message into it
-	send(client_fd, paddedMessage, 1024, MSG_WAITALL);  // Send full buffer
-
-	// Receive reply from server
-	read(client_fd, reply, 1024);
-
-	std::cout << "Server replied: " << reply << std::endl;
 }
 
 // Close socket
-close(client_fd);
 
 return 0;
 }
