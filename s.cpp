@@ -5,11 +5,6 @@
 #include <string>
 	#include <filesystem>
 #include <iostream>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <unistd.h>
 #include <fstream>
 #include <cstring>
 #include "subp.h"
@@ -26,23 +21,9 @@ std::mutex mtx;
 const int PORT = 7432;
 string generateOrderId(){
 std::cout << std::filesystem::current_path() << std::endl;
-	ifstream pkSF("birja/order_pk_sequence.txt"); 
+	ifstream pkSF("birja/order/order_pk_sequence.txt"); 
 	
 
-// Debug check
-std::cout << "Looking for file...\n";
-try {
-    if (!std::filesystem::exists("order_pk_sequence.txt")) {
-        std::cout << "File not found!\n";
-    }
-    std::ifstream pkSF("order_pk_sequence.txt", std::ios::binary);
-    if (!pkSF) {
-        std::cout << "Error code: " << errno << "\n";
-        perror("Error details");
-    }
-} catch (const std::exception& e) {
-    std::cout << "Exception: " << e.what() << "\n";
-}
 if(!pkSF.is_open()) {
     return "error";  // Should handle file errors!
 	}
