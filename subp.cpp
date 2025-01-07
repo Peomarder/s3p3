@@ -999,6 +999,7 @@ values->push(value);
 }
 //values->print();
  insertNewRecord(tableName,values);
+ return "insterted";
 }
 
 if (query.substr(0, 11) == "DELETE FROM") {
@@ -1037,7 +1038,7 @@ deleteRecords(tableName, whereClause);
 
 
 //
-delete tables;
+//delete tables;
 
 
 
