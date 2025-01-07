@@ -1,5 +1,5 @@
 #include <net/if.h>
-#define CPPHTTPLIB_OPENSSL_SUPPORT
+//#define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <sys/ioctl.h>
 #include <iostream>
 #include <string>
@@ -148,10 +148,11 @@ if(db){subp("newdb");}
             std::string username = j["username"];
             string generated_key = tocharints(username); 					//idk no user key specification so idc
             // Database operation
+             cout<<"POST USER2\n";
             subp("INSERT INTO user VALUES ('" + ("id"+tocharints(username))+//id
                  "', '" + username + "', '" 								//name
 				 + generated_key + "')");									//key
-            
+             cout<<"POST USER3\n";
             res.set_content("{\n\"key\": "+generated_key+"\n}", "application/json");
         });
 
