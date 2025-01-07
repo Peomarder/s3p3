@@ -73,7 +73,7 @@ std::cout << "Server initialized on port " << PORT << "\n";
 }
     void start() {
         // Create user endpoint
-        server.Post("/user", [](const httplib::Request& req, httplib::Response& res) {
+        server.Post("/user", [](const httplib::Request &req, httplib::Response &res) {
             auto j = nlohmann::json::parse(req.body);
             std::string username = j["username"];
             string generated_key = tocharints(username); 					//idk no user key specification so idc
@@ -86,7 +86,7 @@ std::cout << "Server initialized on port " << PORT << "\n";
         });
 
         // Create order endpoint
-        server.Post("/order", [](const httplib::Request& req, httplib::Response& res) {
+        server.Post("/order", [](const httplib::Request &req, httplib::Response &res) {
             auto userKey = req.get_header_value("X-USER-KEY");
             auto j = nlohmann::json::parse(req.body);					//hi json babe
             string order_id = generateOrderId();
@@ -103,13 +103,13 @@ std::cout << "Server initialized on port " << PORT << "\n";
         });
 
         // Get orders endpoint
-        server.Get("/order", [](const httplib::Request&, httplib::Response& res) {
+        server.Get("/order", [](const httplib::Request &, httplib::Response &res) {
             std::string result = tToJsonOrder(subp("SELECT order.order_id,order.user_id,order.lot_id,order.quantity,order.type,order.price,order.closed FROM order"));
             res.set_content(result, "application/json");
         });
 
         // Get lots endpoint
-        server.Get("/lot", [](const httplib::Request&, httplib::Response& res) {
+        server.Get("/lot", [](const httplib::Request &, httplib::Response &res) {
             std::string result = subp("SELECT lot.lot_id,lot.name FROM lot");
             res.set_content(result, "application/json");
         });
@@ -119,32 +119,6 @@ std::cout << "Server initialized on port " << PORT << "\n";
 };
 
 
-
-
-
-
-
-
-std::string testBackendFunction(const std::string& username, const std::string& password, const std::string& message) {
-	cout<<"\n test";
-return "User: " + username + " sent message: \n" + subp(message);
-}
-
-std::string processRequest(const char* request) {
-std::string req(request);
-size_t firstSpace = req.find(' ');
-size_t secondSpace = req.find(' ', firstSpace + 1);
-
-if(firstSpace == std::string::npos || secondSpace == std::string::npos) {
-return "Invalid format";
-}
-
-std::string username = req.substr(0, firstSpace);
-std::string password = req.substr(firstSpace + 1, secondSpace - firstSpace - 1);
-std::string message = req.substr(secondSpace + 1);
-
-return testBackendFunction(username, password, message);
-}
 
 void handleClient(int clientSocket) {
 {
@@ -184,6 +158,8 @@ ExchangeServer server;
 string db;
 cin>>db;
 if(db){subp("newdb")}
+while(1){
 server.start();  // "ctrl + c" my goat!
+}
 return 0;
 }
