@@ -17,6 +17,7 @@
 
 
 using namespace std;
+using json = nlohmann::json;
 
 std::mutex mtx;
 const int PORT = 7432;
@@ -52,7 +53,7 @@ std::string tToJsonOrder(const std::string& tableStr) {
         result += "\t\"quantity\": " + quantity + ",\n";
         result += "\t\"type\": \"" + type + "\",\n";
         result += "\t\"price\": " + price + ",\n";
-        result += "\t\"closed\": "" + closed + ""\n";
+        result += "\t\"closed\": \"" + closed + "\"\n";
         result += "  }";
     }
     
@@ -67,7 +68,7 @@ private:
 
 public:
 ExchangeServer() {
-std::cout << "Server initialized on port " << PORT << "\ n";
+std::cout << "Server initialized on port " << PORT << "\n";
 }
     void start() {
         // Create user endpoint
@@ -80,7 +81,7 @@ std::cout << "Server initialized on port " << PORT << "\ n";
                  "', '" + username + "', '" 								//name
 				 + generated_key + "')");									//key
             
-            res.set_content("{"key": "generated_key"}", "application/json");
+            res.set_content("{\n\"key\": "+generated_key+"\n}", "application/json");
         });
 
         // Create order endpoint
