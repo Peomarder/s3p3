@@ -1,4 +1,5 @@
 #include <chrono>
+	#include <filesystem>
 #include <algorithm>
 #include <iostream>
 #include <fstream>
@@ -739,6 +740,9 @@ while (getline(tableStream, tableName, ',')) {
 	}
 	//cout<<"Finished a table...\n";
 	//result->print();
+		actualresult->pushArray(result);
+		//actualresult->print();
+		result->setSize(columnList->size-1,1);
 }
 //cout<<"R";
 //cout<<actualresult->numCols<<" "<<actualresult->numRows;
