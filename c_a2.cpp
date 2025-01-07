@@ -5,8 +5,8 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <arpa/inet.h>
-#include <httplib.h>
-#include <nlohmann/json.hpp>
+#include "chttp/httplib.h"
+#include "json.hpp"
 
 using namespace std;
 bool isNumber(const std::string& str) {
@@ -123,6 +123,7 @@ while (true) {
 		}
 
 		if (firstWord == "ORDER") {
+			string pairId,quantity,price,isBuy;
 			ss>>pairId>>quantity>>price>>isBuy;
 			cout << exchange->createOrder(userKey, pairId, quantity, price, isBuy)
 		}
