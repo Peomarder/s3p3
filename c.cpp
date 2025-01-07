@@ -39,7 +39,8 @@ public:
     }
 
  std::string createOrder(const std::string& userKey, int pairId, 
-                          float quantity, float price, bool isBuy) {
+                          float quantity, float price, string isBuy) {
+							  if ((isBuy!="buy")&&(isBuy!="sell")){ return "format error";}
         nlohmann::json j{
             {"pair_id", pairId},
             {"quantity", quantity},
@@ -123,9 +124,11 @@ while (true) {
 		}
 
 		if (firstWord == "ORDER") {
-			string pairId,quantity,price,isBuy;
+			string isBuy;
+			int pairId;
+			float quantity,price;
 			ss>>pairId>>quantity>>price>>isBuy;
-			cout << exchange->createOrder(userKey, pairId, quantity, price, isBuy)
+			cout << exchange->createOrder(userkey, pairId, quantity, price, isBuy)
 		}
 
 		if (firstWord == "ORDERS") {
