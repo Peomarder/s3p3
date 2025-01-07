@@ -23,6 +23,7 @@ using json = nlohmann::json;
 std::mutex mtx;
 const int PORT = 7432;
 string generateOrderId(){
+std::cout << std::filesystem::current_path() << std::endl;
 	ifstream pkSF("birja/order_pk_sequence.txt"); 
 	if(!pkSF.is_open()) {
     return "error";  // Should handle file errors!
