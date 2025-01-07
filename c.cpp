@@ -83,12 +83,7 @@ bool firstRun = true;
 while (true) {
 	restOfLine = "";
 	std::cout << "Enter message (or QUIT to exit): ";
-		if (firstRun) {
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-			firstRun = false;
-		}
-		
+	
 	std::cin.getline(message, 1024);
 
 	if (std::string(message) == "QUIT") {
