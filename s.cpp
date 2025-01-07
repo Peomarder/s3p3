@@ -11,6 +11,7 @@
 #include <cstring>
 #include "subp.h"
 #include "chttp/httplib.h" //kino lib btw
+#include "json.hpp"
 
 #include <thread>
 #include <mutex>
@@ -98,7 +99,7 @@ std::cout << "Server initialized on port " << PORT << "\n";
                 j["type"].get<std::string>() + "', '')";
             
             subp(query);
-            res.set_content("{order_id: "order_id"}", "application/json");
+            res.set_content("{\norder_id: "+order_id+"\n}", "application/json");
         });
 
         // Get orders endpoint
