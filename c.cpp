@@ -1,4 +1,6 @@
 #include <iostream>
+
+#define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <sstream>
 #include <string>
 #include <cstring>
