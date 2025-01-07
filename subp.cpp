@@ -728,7 +728,7 @@ while (getline(tableStream, tableName, ',')) {
 		
 			rowIndex++;
 			//resRow->popAll();
-			delete resRow;
+			//delete resRow;
 		}
 	csvFile.close();
 	//cout<<"C closing csv...\n";
@@ -860,7 +860,6 @@ streambuf* old_stdout = cout.rdbuf(buffer.rdbuf());
 
 string choi="";
 arrr* arr = new arrr;
-cout << endl;
 ifstream File("schema.json", ios::binary);
 File.open("schema.json");
 	if (!File.is_open()) {
