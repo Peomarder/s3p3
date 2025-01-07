@@ -112,10 +112,13 @@ while (true) {
 	if (std::string(message) == "QUIT") {
 	break;
 	}
-	string msg = string(message);
+	cout<< "1";
+	string msg = std::string(message);
 	std::stringstream ss(msg);
+	cout<< "3";
 	string firstWord = "";
 	ss>>firstWord;
+	cout<< "3";
 		if (firstWord == "LOGIN") {
 			ss>>restOfLine;
 			userkey = restOfLine;
@@ -130,7 +133,7 @@ while (true) {
 			int pairId;
 			float quantity,price;
 			ss>>pairId>>quantity>>price>>isBuy;
-			cout << exchange->createOrder(userkey, pairId, quantity, price, isBuy)
+			cout << exchange->createOrder(userkey, pairId, quantity, price, isBuy);
 		}
 
 		if (firstWord == "ORDERS") {
