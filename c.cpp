@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <cstring>
 #include <sys/socket.h>
@@ -95,6 +96,7 @@ return -1;
 string userkey = "";
 std::cout << "Connected to server..." << std::endl;
 string restOfLine = "";
+bool firstRun = true;
 
 while (true) {
 	restOfLine = "";
@@ -110,8 +112,8 @@ while (true) {
 	if (std::string(message) == "QUIT") {
 	break;
 	}
-
-	std::stringstream ss(string(message));
+	string msg = string(message);
+	std::stringstream ss(msg);
 	string firstWord = "";
 	ss>>firstWord;
 		if (firstWord == "LOGIN") {
