@@ -114,52 +114,25 @@ std::cout << "Server initialized on port " << PORT << "\n";
             res.set_content(result, "application/json");
         });
 
+while(1){
         server.listen("0.0.0.0", PORT);
+}
     }
 };
 
 
 
-void handleClient(int clientSocket) {
-{
-std::lock_guard<std::mutex> lock(mtx);
-std::cout << "Handling client in thread... Socket: " << clientSocket << std::endl;
-}
 
-while(true) {
-std::cout << "Waiting for message..." << std::endl;  // Debug print
-char buffer[1024] = {0};
-int bytesRead = read(clientSocket, buffer, 1024);
 
-std::cout << "Bytes read: " << bytesRead << std::endl;  // Debug print
 
-if(bytesRead <= 0) {
-std::lock_guard<std::mutex> lock(mtx);
-std::cout << "Client disconnected (bytes: " << bytesRead << ")" << std::endl;
-break;
-}
-
-{
-std::lock_guard<std::mutex> lock(mtx);
-std::cout << "Received: " << buffer << std::endl;
-}
-
-std::string response = processRequest(buffer);
-std::cout << "Sending response..." << std::endl;  // Debug print
-send(clientSocket, response.c_str(), response.length(), 0);
-}
-
-close(clientSocket);
-}
 
 int main() {
 int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 ExchangeServer server;
-string db;
+int db;
 cin>>db;
-if(db){subp("newdb")}
-while(1){
+if(db){subp("newdb");}
 server.start();  // "ctrl + c" my goat!
-}
+
 return 0;
 }
