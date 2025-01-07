@@ -181,6 +181,9 @@ close(clientSocket);
 int main() {
 int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 ExchangeServer server;
+string db;
+cin>>db;
+if(db){subp("newdb")}
 server.start();  // "ctrl + c" my goat!
 return 0;
 }
