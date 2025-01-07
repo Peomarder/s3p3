@@ -143,7 +143,8 @@ if(db){subp("newdb");}
 
         // Create user endpoint
         server.Post("/user", [](const httplib::Request &req, httplib::Response &res) {
-            auto j = nlohmann::json::parse(req.body);
+            cout<<"POST USER\n";
+			auto j = nlohmann::json::parse(req.body);
             std::string username = j["username"];
             string generated_key = tocharints(username); 					//idk no user key specification so idc
             // Database operation
@@ -182,7 +183,7 @@ if(db){subp("newdb");}
             std::string result = subp("SELECT lot.lot_id,lot.name FROM lot");
             res.set_content(result, "application/json");
         });
-
+		cout<<"Listening\n"
         server.listen("0.0.0.0", PORT);
 
 
