@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define CPPHTTPLIB_OPENSSL_SUPPORT
+//#define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <sstream>
 #include <string>
 #include <cstring>
@@ -32,12 +32,14 @@ private:
     httplib::Client client;
 
 public:
-    ExchangeClient(const std::string& host = "127.0.0.1", int port = 8080) 
+    ExchangeClient(const std::string& host = "127.0.0.1", int port = 7432) 
     : client(host, port) {}
 
     std::string createUser(const std::string& username) {
+		cout<<"userpost2";
         nlohmann::json j{{"username", username}};
         auto res = client.Post("/user", j.dump(), "application/json");
+		cout<<"userpost3";
         return res->body;
     }
 
@@ -104,6 +106,7 @@ while (true) {
 		}
 		if (firstWord == "REG") {
 			ss>>restOfLine;
+			cout<<"userpost1";
 			cout << exchange->createUser(restOfLine);
 		}
 
