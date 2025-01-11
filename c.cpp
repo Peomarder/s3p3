@@ -66,6 +66,25 @@ public:
         auto res = client.Get("/lot");
         return res->body;
     }
+	
+    std::string getPair() {
+        auto res = client.Get("/pair");
+        return res->body;
+    }
+	std::string getBal(const std::string& userKey) {
+        httplib::Headers headers = {{"X-USER-KEY", userKey}};
+        auto res = client.Get("/balance", headers);
+        return res->body;
+    }
+	  std::string DelOrder(const std::string& userKey, int order_id) {
+        httplib::Headers headers = {{"X-USER-KEY", userKey}};
+		nlohmann::json j{
+            {"order_id", order_id} //order_id
+        };
+        auto res = client.Delete("/order", headers, j.dump(), "application/json");
+        return res->body;
+    }
+	
 };
 
 
@@ -104,12 +123,13 @@ while (true) {
 			ss>>restOfLine;
 			userkey = restOfLine;
 		}
+		
 		if (firstWord == "REG") {
 			ss>>restOfLine;
-			cout<<"userpost1";
+			cout<<"userpost1\n";
 			cout << exchange->createUser(restOfLine);
 		}
-
+		if (userkey == "") { cout << "logged out."; continue;}
 		if (firstWord == "ORDER") {
 			string isBuy;
 			int pairId;
@@ -121,7 +141,17 @@ while (true) {
 		if (firstWord == "ORDERS") {
 			cout << exchange->getOrders();
 		}
-
+		if (firstWord == "LOTS") {
+			cout << exchange->getLots();
+		}
+		if (firstWord == "BALANCE") {
+			cout << exchange->getBal(userkey);
+		}
+		if (firstWord == "DelOrder") {
+			int ordId;
+			ss>>ordId;
+			cout << exchange->getLots(userkey,ordId);
+		}
 
 }
 
